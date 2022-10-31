@@ -2,10 +2,10 @@ import React from "react";
 import "./card.css";
 import "./flip-transition.css";
 
-export default function Card({ onClick }, props) {
-  const { imgSrc, title, ingredients, instructions } = props;
+export default function Card(props) {
+  const { imgSrc, title, ingredients, instructions, onClick } = props;
   return (
-    <div className="card" onClick={onClick}>
+    <div className="card mb-5" onClick={onClick}>
       <div className="card-back">
         <div>{instructions}</div>
       </div>

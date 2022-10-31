@@ -1,9 +1,10 @@
 export function getCocktailList(apiResponse) {
-  if (!apiResponse || !apiResponse.response) {
+  console.log(apiResponse);
+  if (!apiResponse || !apiResponse.drinks) {
     return [];
   }
 
-  return apiResponse.response.results.map((result) => {
+  return apiResponse.drinks.map((result) => {
     return {
       id: result.idDrink,
       thumbnail: result.strDrinkThumb,

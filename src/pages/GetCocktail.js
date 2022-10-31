@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import "./GetCocktail.css";
 
@@ -9,17 +9,21 @@ import useFetch from "../hooks/useFetch";
 import { getCocktailByIngredient } from "../api/options";
 
 export default function GetCocktail() {
-  const [ingredient, setIngredient] = useState([]);
-  const [dataFromBtn, setDataFromBtn] = useState([]);
-
-  const cocktailEndpoint = getCocktailByIngredient(ingredient);
+  const [ingredient, setIngredient] = useState("");
+  const [cocktailEndpoint, setCocktailEndpoint] = useState("");
+  const [cocktailById, setCocktailById] = useState([]);
   const data = useFetch(cocktailEndpoint);
   const mappedData = getCocktailList(data);
+  console.log(mappedData);
 
   const handleClick = () => {
-    setDataFromBtn(ingredient);
-    console.log(dataFromBtn);
+    const cocktailEndpointByIngredient = getCocktailByIngredient(ingredient);
+    setCocktailEndpoint(cocktailEndpointByIngredient);
+    setCocktailById(mappedData.idDrink);
+    console.log(cocktailById);
+    console.log(ingredient);
   };
+
   return (
     <Layout>
       <div className="flex flex-col content-center justify-evenly m-auto">
@@ -29,7 +33,6 @@ export default function GetCocktail() {
             label="Insert an ingredient"
             value={ingredient}
             onChange={(e) => {
-              e.preventDefault();
               setIngredient(e.target.value);
             }}
           />

@@ -7,10 +7,11 @@ export default function CocktailList(props) {
   const { cocktailList } = props;
 
   return (
-    <Row key={cocktail.id}>
+    <Row>
       {cocktailList.map((cocktail) => {
         return (
-          <CocktailCard
+          <Card
+            key={cocktail.id}
             imgSrc={cocktail.thumbnail}
             title={cocktail.title}
             ingredients={cocktail.ingredients}
