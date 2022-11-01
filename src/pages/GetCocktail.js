@@ -3,25 +3,37 @@ import Layout from "../components/Layout";
 import "./GetCocktail.css";
 
 import FlippableCard from "../components/Card-component/FlippableCard";
-import { getCocktailList } from "../api/adaptors";
-import useFetch from "../hooks/useFetch";
+import Pagination from "../components/Pagination";
 
-import { getCocktailByIngredient } from "../api/options";
+import { getCocktailList, getCocktailByIdList } from "../api/adaptors";
+import { getCocktailByIngredient, getCocktailById } from "../api/options";
+
+import useFetch from "../hooks/useFetch";
 
 export default function GetCocktail() {
   const [ingredient, setIngredient] = useState("");
   const [cocktailEndpoint, setCocktailEndpoint] = useState("");
-  const [cocktailById, setCocktailById] = useState([]);
+  const [endpointById, setEndpointById] = useState("");
+  const [idFromBtn, setIdFromBtn] = useState();
+
   const data = useFetch(cocktailEndpoint);
   const mappedData = getCocktailList(data);
+
   console.log(mappedData);
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(2);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = mappedData.slice(firstPostIndex, lastPostIndex);
+
+  // End of Pagination
 
   const handleClick = () => {
     const cocktailEndpointByIngredient = getCocktailByIngredient(ingredient);
     setCocktailEndpoint(cocktailEndpointByIngredient);
-    setCocktailById(mappedData.idDrink);
-    console.log(cocktailById);
-    console.log(ingredient);
   };
 
   return (
@@ -45,9 +57,15 @@ export default function GetCocktail() {
           </button>
         </div>
         <div className="mx-auto">
-          <FlippableCard cocktail={mappedData}></FlippableCard>
+          <FlippableCard cocktail={currentPosts}></FlippableCard>
         </div>
       </div>
+      <Pagination
+        totalPosts={mappedData.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Layout>
   );
 }

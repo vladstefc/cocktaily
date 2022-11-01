@@ -1,5 +1,4 @@
 export function getCocktailList(apiResponse) {
-  console.log(apiResponse);
   if (!apiResponse || !apiResponse.drinks) {
     return [];
   }
@@ -13,6 +12,18 @@ export function getCocktailList(apiResponse) {
       instructions: result.strInstructions,
       category: result.strCategory,
       type: result.strAlcoholic,
+    };
+  });
+}
+
+export function getCocktailByIdList(apiResponse) {
+  if (!apiResponse || !apiResponse.drinks) {
+    return {};
+  }
+
+  return apiResponse.drinks.map((result) => {
+    return {
+      id: result.idDrink,
     };
   });
 }

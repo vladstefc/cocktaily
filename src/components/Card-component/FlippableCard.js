@@ -6,21 +6,27 @@ import { CSSTransition } from "react-transition-group";
 export default function FlippableCard(props) {
   const [showFront, setShowFront] = useState(true);
   const { cocktail } = props;
-  console.log(cocktail);
   return (
     <div className="flippable-card-container flex flex-wrap flex-row">
-      {cocktail.map((cocktail) => {
+      {cocktail.map((cocktail, index) => {
         return (
-          <Card
-            key={cocktail.id}
-            imgSrc={cocktail.thumbnail}
-            title={cocktail.title}
-            ingredients={cocktail.ingredients}
-            instructions={cocktail.instructions}
-            onClick={() => {
-              setShowFront((isfront) => !isfront);
-            }}
-          />
+          <CSSTransition
+            in={showFront}
+            timeout={300}
+            classNames="flip"
+            key={index}
+          >
+            <Card
+              key={cocktail.id}
+              title={cocktail.title}
+              imgSrc={cocktail.thumbnail}
+              ingredients={cocktail.ingredients}
+              instructions={cocktail.instructions}
+              onClick={() => {
+                setShowFront((isfront) => !isfront);
+              }}
+            />
+          </CSSTransition>
         );
       })}
     </div>
