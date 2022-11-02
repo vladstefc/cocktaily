@@ -9,6 +9,7 @@ export default function useFetch(url) {
         .then((res) => res.json())
         .then((jsonRes) => {
           setData(jsonRes);
+          console.log(data);
         });
     }
   }, [url]);

@@ -19,11 +19,13 @@ export default function GetCocktail() {
   const data = useFetch(cocktailEndpoint);
   const mappedData = getCocktailList(data);
 
-  console.log(mappedData);
+  // const { id } = mappedData[0];
+
+  console.log("mappedData getcocktail", mappedData);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(2);
+  const [postsPerPage, setPostsPerPage] = useState(3);
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
@@ -57,7 +59,20 @@ export default function GetCocktail() {
           </button>
         </div>
         <div className="mx-auto">
-          <FlippableCard cocktail={currentPosts}></FlippableCard>
+          <div className="flippable-card-container flex flex-wrap flex-col gap-8 justify-center content-center">
+            {currentPosts.map((cocktail) => {
+              return (
+                <FlippableCard
+                  key={cocktail.id}
+                  id={cocktail.id}
+                  title={cocktail.title}
+                  imgSrc={cocktail.thumbnail}
+                  ingredients={cocktail.ingredients}
+                  instructions={cocktail.instructions}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
       <Pagination
