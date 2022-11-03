@@ -5,30 +5,27 @@ import "./GetCocktail.css";
 import FlippableCard from "../components/Card-component/FlippableCard";
 import Pagination from "../components/Pagination";
 
-import { getCocktailList, getCocktailByIdList } from "../api/adaptors";
-import { getCocktailByIngredient, getCocktailById } from "../api/options";
+import { getCocktailList } from "../api/adaptors";
+import { getCocktailByIngredient } from "../api/options";
 
 import useFetch from "../hooks/useFetch";
+import useCardsOnPage from "../hooks/useCardsOnPage";
 
 export default function GetCocktail() {
   const [ingredient, setIngredient] = useState("");
   const [cocktailEndpoint, setCocktailEndpoint] = useState("");
-  const [endpointById, setEndpointById] = useState("");
-  const [idFromBtn, setIdFromBtn] = useState();
 
   const data = useFetch(cocktailEndpoint);
   const mappedData = getCocktailList(data);
 
-  // const { id } = mappedData[0];
-
-  console.log("mappedData getcocktail", mappedData);
-
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(3);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
+  const cardsOnPage = useCardsOnPage();
+  // const [postsPerPage, setPostsPerPage] = useState(cardsOnPage);
+
+  const lastPostIndex = currentPage * cardsOnPage;
+  const firstPostIndex = lastPostIndex - cardsOnPage;
   const currentPosts = mappedData.slice(firstPostIndex, lastPostIndex);
 
   // End of Pagination
@@ -44,7 +41,8 @@ export default function GetCocktail() {
         <div className="w-80 flex justify-between mb-2 content-center m-auto py-5 text-black">
           <input
             type="text"
-            label="Insert an ingredient"
+            placeholder="Type an ingredient"
+            className="text-white"
             value={ingredient}
             onChange={(e) => {
               setIngredient(e.target.value);
@@ -77,7 +75,7 @@ export default function GetCocktail() {
       </div>
       <Pagination
         totalPosts={mappedData.length}
-        postsPerPage={postsPerPage}
+        postsPerPage={cardsOnPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />

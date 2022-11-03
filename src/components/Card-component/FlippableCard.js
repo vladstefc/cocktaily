@@ -7,8 +7,6 @@ export default function FlippableCard(props) {
   const [showFront, setShowFront] = useState(true);
   const { title, imgSrc, ingredients, instructions, id } = props;
 
-  console.log(id);
-
   return (
     <CSSTransition in={showFront} timeout={300} classNames="flip">
       <Card
