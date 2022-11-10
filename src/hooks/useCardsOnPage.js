@@ -18,7 +18,7 @@ export default function useCardsOnPage() {
           default:
             setCardsOnPage(3);
         }
-      }, 500);
+      }, 0);
     });
   }, []);
 

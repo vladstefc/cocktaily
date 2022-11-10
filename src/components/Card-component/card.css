@@ -4,6 +4,8 @@
     width: 100%;
 
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+
 
     position: relative;
 

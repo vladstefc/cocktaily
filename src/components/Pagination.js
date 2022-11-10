@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Pagination.css";
 
@@ -9,8 +9,15 @@ export default function Pagination(props) {
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pages.push(i);
   }
+
   return (
     <div className="pagination">
+      <button
+        className={`${currentPage === 1 ? "disabled" : ""}`}
+        onClick={() => setCurrentPage((prev) => (prev <= 1 ? prev : prev - 1))}
+      >
+        Prev
+      </button>
       {pages.map((page, index) => {
         return (
           <button
@@ -22,6 +29,14 @@ export default function Pagination(props) {
           </button>
         );
       })}
+      <button
+        className={`${currentPage === pages.length ? "disabled" : ""}`}
+        onClick={() =>
+          setCurrentPage((prev) => (prev >= pages.length ? prev : prev + 1))
+        }
+      >
+        Next
+      </button>
     </div>
   );
 }

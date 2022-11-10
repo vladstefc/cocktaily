@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import "./GetCocktail.css";
 
+import { Button } from "@material-tailwind/react";
+
 import FlippableCard from "../components/Card-component/FlippableCard";
 import Pagination from "../components/Pagination";
 
@@ -20,7 +22,6 @@ export default function GetCocktail() {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-
   const cardsOnPage = useCardsOnPage();
   // const [postsPerPage, setPostsPerPage] = useState(cardsOnPage);
 
@@ -38,23 +39,24 @@ export default function GetCocktail() {
   return (
     <Layout>
       <div className="flex flex-col content-center justify-evenly m-auto">
-        <div className="w-80 flex justify-between mb-2 content-center m-auto py-5 text-black">
-          <input
-            type="text"
-            placeholder="Type an ingredient"
-            className="text-white"
-            value={ingredient}
-            onChange={(e) => {
-              setIngredient(e.target.value);
-            }}
-          />
-          <button
-            className="custom-btn btn-style"
-            size="sm"
-            onClick={handleClick}
-          >
-            Search
-          </button>
+        <div className="w-80 flex flex-col justify-between mb-2 content-center m-auto py-5 text-black">
+          <h1 className="text-white mb-4 text-2xl">
+            Please type an ingredient:
+          </h1>
+          <div className="flex justify-center">
+            <input
+              type="text"
+              placeholder="Type an ingredient"
+              className="text-white"
+              value={ingredient}
+              onChange={(e) => {
+                setIngredient(e.target.value);
+              }}
+            />
+            <Button variant="filled" onClick={handleClick} size="sm">
+              Search
+            </Button>
+          </div>
         </div>
         <div className="mx-auto">
           <div className="flippable-card-container flex flex-wrap flex-col gap-8 justify-center content-center">
