@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function useCardsOnPage() {
-  const [cardsOnPage, setCardsOnPage] = useState(1);
+  const [cardsOnPage, setCardsOnPage] = useState(3);
   useEffect(() => {
     let timeout;
     window.addEventListener("resize", () => {

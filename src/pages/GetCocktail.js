@@ -23,7 +23,6 @@ export default function GetCocktail() {
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const cardsOnPage = useCardsOnPage();
-  // const [postsPerPage, setPostsPerPage] = useState(cardsOnPage);
 
   const lastPostIndex = currentPage * cardsOnPage;
   const firstPostIndex = lastPostIndex - cardsOnPage;
